@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="theme-color" content="#4f46e5">
-<title>Aplikasi Tugas - Siswa</title>
+<meta name="theme-color" content="#567c83">
+<title>SMKN 2 Mojokerto</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -14,9 +14,8 @@
   <!-- MASUK / DAFTAR -->
   <div id="screen-auth" class="screen active">
     <div class="card narrow auth-card">
-      <div class="logo-app">📚</div>
-      <h1>SMKN 2 Mojokerto</h1>
-      <p class="sub">Masuk untuk melihat daftar tugas & materi</p>
+      <h1 style="font-size: 1.5rem; text-align: center; color: #3f6268;">📚SMKN 2 Mojokerto</h1>
+      <p class="sub" style="text-align: center;">Masuk untuk melihat daftar tugas & materi</p>
 
       <div class="tabs">
         <button type="button" class="tab active" id="tabLogin">Masuk</button>
@@ -62,7 +61,7 @@
       <h3 style="margin-bottom: 12px; font-size: 1rem;">📌 Pilih Tugas Kamu</h3>
       
       <div class="subject-grid">
-        <!-- Card Tugas -->
+        <!-- Card Tugas Bahasa Indonesia (Terhubung ke database) -->
         <div class="subject-card active-subject" id="btnKeUjian">
           <div class="subject-icon">📖</div>
           <div class="subject-info">
@@ -71,7 +70,7 @@
           </div>
         </div>
         
-        <!-- Card Dummy (Contoh tampilan saja) -->
+        <!-- Card Dummy -->
         <div class="subject-card" onclick="alert('Tugas Olahraga belum tersedia.')">
           <div class="subject-icon">⚽</div>
           <div class="subject-info">
@@ -79,38 +78,30 @@
             <p>Belum tersedia</p>
           </div>
         </div>
-
-        <div class="subject-card" onclick="alert('Tugas Matematika belum tersedia.')">
-          <div class="subject-icon">📐</div>
-          <div class="subject-info">
-            <h4>Matematika</h4>
-            <p>Belum tersedia</p>
-          </div>
-        </div>
       </div>
     </div>
 
     <div class="card" style="padding: 16px; border-radius: 20px;">
-      <div class="consent" style="margin-bottom: 0;">
+      <div class="consent" style="margin-bottom: 10px;">
         <input type="checkbox" id="chkConsent">
-        <span>Saya mengizinkan <b>kamera depan menyala</b> selama mengerjakan tugas. Foto disimpan untuk pengawasan guru.</span>
+        <span>Saya mengizinkan <b>kamera depan menyala</b> selama mengerjakan tugas.</span>
       </div>
-    </div>
-
-    <div class="card" style="padding: 16px; border-radius: 20px;">
+      <!-- Tombol ini disembunyikan secara visual, tapi tetap ada untuk JS -->
+      <button class="btn-main" id="btnLanjut" style="display:none;">Lanjut</button>
+      
       <div style="font-size:.8rem;font-weight:700;color:#374151;margin-bottom:8px">🟢 Sedang dikerjakan:</div>
       <div id="activeList" class="absensi-list"><span class="hint">Tidak ada</span></div>
     </div>
   </div>
 
-  <!-- ABSEN (Sebelum mulai) -->
+  <!-- ABSEN -->
   <div id="screen-absen" class="screen">
     <div class="app-header" style="margin-bottom: 10px;">
-      <h1 class="user-name" style="font-size: 1.2rem;">Persiapan Tugas</h1>
-      <button class="btn-sm ghost" id="btnBatalAbsen" style="width:auto; padding: 6px 12px; margin:0;">Batal</button>
+      <h1 class="user-name" style="font-size: 1.2rem; color:#fff;">Persiapan Tugas</h1>
+      <button class="btn-sm ghost" id="btnBatalAbsen" style="width:auto; padding: 6px 12px; margin:0; color:#fff; border-color:#fff;">Batal</button>
     </div>
     <div class="card" style="border-radius: 20px;">
-      <p class="sub" style="margin-bottom:14px">Posisikan wajah di depan kamera. Kamera akan aktif terus-menerus selama pengerjaan.</p>
+      <p class="sub" style="margin-bottom:14px">Posisikan wajah di depan kamera. Kamera akan aktif terus-menerus.</p>
 
       <div class="cam-error" id="camError">
         <b>⚠️ Kamera tidak dapat diakses</b>
@@ -139,7 +130,7 @@
     </div>
   </div>
 
-  <!-- KUIS / TUGAS -->
+  <!-- KUIS -->
   <div id="screen-quiz" class="screen">
     <div class="topbar">
       <div class="who">
@@ -176,15 +167,10 @@
         <button class="primary" id="btnFinish">✓ Selesai</button>
       </div>
     </div>
-
+    
     <div class="card" style="border-radius: 20px;">
       <h3>Navigasi Soal</h3>
       <div class="palette" id="palette"></div>
-      <div class="legend">
-        <span><i class="dot" style="background:#dbeafe"></i>Dijawab</span>
-        <span><i class="dot" style="background:#ede9fe;border:2px solid #4c1d95"></i>Aktif</span>
-        <span><i class="dot" style="background:#f3f4f6"></i>Belum</span>
-      </div>
     </div>
   </div>
 
@@ -212,14 +198,13 @@
         <button class="btn-main btn-green" style="margin:0;flex:1;min-width:100px" id="btnSelesai">🏠 Selesai</button>
       </div>
     </div>
-    
     <div class="card" style="border-radius: 20px;">
       <h2>📝 Pembahasan</h2>
       <div id="reviewList"></div>
     </div>
   </div>
 
-  <!-- LAPORAN (Disembunyikan dari menu bawah, muncul via JS jika guru) -->
+  <!-- LAPORAN -->
   <div id="screen-report" class="screen">
     <div class="topbar">
       <div class="who">📊 Laporan Siswa</div>
@@ -228,62 +213,52 @@
     <div class="card" style="border-radius: 20px;">
       <div class="toolbar">
         <input type="text" id="rpSearch" placeholder="🔍 Cari nama...">
-        <select id="rpFilterKelas"><option value="">Semua Kelas</option></select>
-        <button class="btn-sm btn-ok" id="btnExport">⬇ CSV</button>
         <button class="btn-sm" id="btnRefresh">🔄</button>
       </div>
       <div class="table-wrap">
         <table>
-          <thead>
-            <tr><th>No</th><th>Nama</th><th>Kelas</th><th>Tanggal</th><th>Skor</th><th>Aksi</th></tr>
-          </thead>
+          <thead><tr><th>No</th><th>Nama</th><th>Kelas</th><th>Tanggal</th><th>Skor</th></tr></thead>
           <tbody id="rpBody"></tbody>
         </table>
       </div>
     </div>
   </div>
-
-  <!-- KELOLA (Guru) -->
+  
+  <!-- DAFTAR EXAMS (Hidden) -->
+  <div id="screen-exams" class="screen">
+    <div class="topbar"><div class="who">📋 Daftar Tugas</div><button class="btn-sm" id="btnExamBack">← Kembali</button></div>
+    <div class="card"><div id="examList"></div></div>
+  </div>
+  
+  <!-- KELOLA (Hidden) -->
   <div id="screen-manage" class="screen">
-    <div class="topbar"><div class="who">🛠 Kelola Kelas &amp; Tugas</div>
-      <button class="btn-sm" id="btnManageBack">← Kembali</button></div>
+    <div class="topbar"><div class="who">🛠 Kelola</div><button class="btn-sm" id="btnManageBack">← Kembali</button></div>
     <div class="card"><h2>Kelas</h2><div id="mgKelas"></div></div>
     <div class="card"><h2>Tugas</h2><div id="mgUjian"></div></div>
   </div>
-
-  <!-- DAFTAR TUGAS (eks Ujian) -->
-  <div id="screen-exams" class="screen">
-    <div class="topbar"><div class="who">📋 Daftar Tugas</div>
-      <button class="btn-sm" id="btnExamBack">← Kembali</button></div>
-    <div class="card"><div id="examList"></div></div>
-  </div>
 </div>
 
-<!-- BOTTOM NAVIGATION (Menu Bawah) -->
-<nav class="bottom-nav" id="bottomNav" style="display: none;">
-  <div class="nav-item active" onclick="showScreen('home'); refreshActiveList();">
-    <span class="nav-icon">🏠</span>
-    <span>Beranda</span>
-  </div>
-  <div class="nav-item" onclick="alert('Fitur Riwayat segera hadir!')">
-    <span class="nav-icon">📋</span>
-    <span>Tugas Saya</span>
-  </div>
-  <div class="nav-item" id="navLaporan" onclick="runBusy(null, openReport)">
-    <span class="nav-icon">📊</span>
-    <span>Laporan</span>
-  </div>
-  <div class="nav-item" onclick="doLogout()">
-    <span class="nav-icon">🚪</span>
-    <span>Keluar</span>
-  </div>
-</nav>
-
-<!-- COPYRIGHT BARU -->
+<!-- COPYRIGHT FIX -->
 <footer class="app-footer">
   <div>&copy; 2026 <b>SMKN 2 Mojokerto</b></div>
   <div>Dikembangkan oleh Muhammad Ilham Dwi Pramesdi</div>
 </footer>
+
+<!-- BOTTOM NAVIGATION -->
+<nav class="bottom-nav" id="bottomNav" style="display: none;">
+  <div class="nav-item active" id="navBeranda" onclick="showScreen('home'); refreshActiveList();">
+    <span class="nav-icon">🏠</span><span>Beranda</span>
+  </div>
+  <div class="nav-item" onclick="alert('Fitur Riwayat segera hadir!')">
+    <span class="nav-icon">📋</span><span>Tugas Saya</span>
+  </div>
+  <div class="nav-item" id="navLaporan" onclick="runBusy(null, openReport)">
+    <span class="nav-icon">📊</span><span>Laporan</span>
+  </div>
+  <div class="nav-item" onclick="doLogout()">
+    <span class="nav-icon">🚪</span><span>Keluar</span>
+  </div>
+</nav>
 
 <!-- KAMERA LIVE MENGAMBANG -->
 <div class="cam-float" id="camFloat">
@@ -298,13 +273,12 @@
   </div>
 </div>
 
-<!-- Modal & Loading -->
+<!-- Modal & Overlay -->
 <div class="modal" id="modal"><div class="modal-box"><div class="modal-head"><h2 id="modalTitle">Detail</h2><button class="close-x" id="modalClose">✕</button></div><div id="modalBody"></div></div></div>
 <div class="modal confirm" id="confirm"><div class="modal-box small"><h2 id="cfTitle">Konfirmasi</h2><p id="cfMsg"></p><div class="field" id="cfTypeWrap" hidden><label for="cfType" id="cfTypeLbl"></label><input id="cfType" type="text"></div><div class="row"><button class="ghost" id="cfNo" style="margin:0">Batal</button><button class="btn-delete" id="cfYes">Ya</button></div></div></div>
 <div class="loading" id="loading"><div class="spinner"></div><div id="loadingText">Memproses…</div></div>
 <div class="toasts" id="toasts" aria-live="polite"></div>
 
-<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script src="js/config.js"></script>
 <script src="js/data.js"></script>
@@ -318,4 +292,4 @@
 <script src="js/ujian.js"></script>
 <script src="js/main.js"></script>
 </body>
-          </html>
+  </html>
