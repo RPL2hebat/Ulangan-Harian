@@ -30,11 +30,8 @@ function showScreen(name){
     bottomNav.style.display = 'flex';
     // Set active state (Beranda atau Laporan)
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    if(name === 'home') {
-      document.querySelector('.nav-item:nth-child(1)').classList.add('active');
-    } else if(name === 'report') {
-      document.querySelector('.nav-item:nth-child(3)').classList.add('active');
-    }
+    if(name === 'home' && $('navBeranda')) $('navBeranda').classList.add('active');
+    if(name === 'report' && $('navLaporan')) $('navLaporan').classList.add('active');
   }
 }
 
@@ -58,14 +55,15 @@ function toast(msg, type, ms){
   const t = document.createElement('div');
   t.className = 'toast ' + (type || '');
   t.textContent = msg;
-  $('toasts').appendChild(t);
+  const toasts = $('toasts');
+  if(toasts) toasts.appendChild(t);
   setTimeout(()=>t.remove(), ms || 4000);
 }
 
-/* ---- loading: tombol (cegah klik berulang) & layar penuh ---- */
+/* ---- loading ---- */
 async function runBusy(btn, fn){
   if(btn){
-    if(btn.dataset.busy === '1') return;      // sedang diproses → abaikan klik berikutnya
+    if(btn.dataset.busy === '1') return;
     btn.dataset.busy = '1'; btn.classList.add('busy'); btn.disabled = true;
   }
   try{ return await fn(); }
@@ -74,13 +72,10 @@ async function runBusy(btn, fn){
     if(btn){ btn.dataset.busy = '0'; btn.classList.remove('busy'); btn.disabled = false; }
   }
 }
-function showLoading(text){ $('loadingText').textContent = text || 'Memproses…'; $('loading').classList.add('show'); }
-function setLoadingText(text){ $('loadingText').textContent = text; }
-function hideLoading(){ $('loading').classList.remove('show'); }
+function showLoading(text){ if($('loadingText')) $('loadingText').textContent = text || 'Memproses…'; if($('loading')) $('loading').classList.add('show'); }
+function setLoadingText(text){ if($('loadingText')) $('loadingText').textContent = text; }
+function hideLoading(){ if($('loading')) $('loading').classList.remove('show'); }
 
-/* ---- dialog konfirmasi (pengganti confirm() bawaan) ----
-   opts: {title, message, yes, danger=true, typeWord}  → Promise<boolean>
-   typeWord: pengguna harus mengetik kata itu (untuk penghapusan massal) */
 function confirmDialog(opts){
   opts = opts || {};
   return new Promise(resolve=>{
@@ -113,7 +108,6 @@ function confirmDialog(opts){
   });
 }
 
-/* ---- modal umum ---- */
 function openModal(title, html){
   $('modalTitle').textContent = title;
   $('modalBody').innerHTML = html;
