@@ -2,20 +2,21 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#567c83">
-<title>UH Hikayat — Kamera LIVE Depan</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#4f46e5">
+<title>Aplikasi Tugas - Siswa</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <div class="wrap">
-  <div class="net-banner" id="netBanner" hidden>⚠️ Tidak ada koneksi internet. Perubahan belum tersimpan.</div>
+  <div class="net-banner" id="netBanner" hidden>⚠️ Tidak ada koneksi internet.</div>
 
   <!-- MASUK / DAFTAR -->
   <div id="screen-auth" class="screen active">
-    <div class="card narrow">
-      <h1>📖 SMKN 2 KOTA MOJOKERTO</h1>
-      <p class="sub">50 Soal C3 · Kamera Depan <b class="live-text">LIVE</b> Aktif</p>
+    <div class="card narrow auth-card">
+      <div class="logo-app">📚</div>
+      <h1>SMKN 2 Mojokerto</h1>
+      <p class="sub">Masuk untuk melihat daftar tugas & materi</p>
 
       <div class="tabs">
         <button type="button" class="tab active" id="tabLogin">Masuk</button>
@@ -42,49 +43,74 @@
         <div class="msg" id="authMsg" hidden></div>
         <button type="submit" class="btn-main" id="btnAuth">Masuk</button>
       </form>
-
-      <div class="info-bar info-warn" id="setupWarn" hidden>
-        ⚙️ <b>Supabase belum dikonfigurasi.</b> Isi <code>SUPABASE_URL</code> dan <code>SUPABASE_KEY</code>
-        di file <code>js/config.js</code> (lihat README).
-      </div>
+      <div class="info-bar info-warn" id="setupWarn" hidden>⚙️ Supabase belum dikonfigurasi.</div>
     </div>
   </div>
 
-  <!-- BERANDA SISWA / GURU -->
+  <!-- BERANDA SISWA (PILIHAN TUGAS) -->
   <div id="screen-home" class="screen">
-    <div class="card narrow">
-      <h1> 🔹MENU UTAMA</h1>
-      <p class="sub">Halo, <b id="homeNama">—</b> · <span id="homeKelas">—</span> <span class="tag" id="homeRole">siswa</span></p>
+    <div class="app-header">
+      <div>
+        <p class="greet">Halo,</p>
+        <h1 class="user-name" id="homeNama">—</h1>
+        <p class="user-kelas" id="homeKelas">—</p>
+      </div>
+      <div class="avatar" id="homeRole">S</div>
+    </div>
 
-      <label class="consent" for="chkConsent">
+    <div class="card" style="padding: 16px; border-radius: 20px;">
+      <h3 style="margin-bottom: 12px; font-size: 1rem;">📌 Pilih Tugas Kamu</h3>
+      
+      <div class="subject-grid">
+        <!-- Card Tugas -->
+        <div class="subject-card active-subject" id="btnKeUjian">
+          <div class="subject-icon">📖</div>
+          <div class="subject-info">
+            <h4>Bahasa Indonesia</h4>
+            <p>Hikayat - 50 Soal</p>
+          </div>
+        </div>
+        
+        <!-- Card Dummy (Contoh tampilan saja) -->
+        <div class="subject-card" onclick="alert('Tugas Olahraga belum tersedia.')">
+          <div class="subject-icon">⚽</div>
+          <div class="subject-info">
+            <h4>Olahraga</h4>
+            <p>Belum tersedia</p>
+          </div>
+        </div>
+
+        <div class="subject-card" onclick="alert('Tugas Matematika belum tersedia.')">
+          <div class="subject-icon">📐</div>
+          <div class="subject-info">
+            <h4>Matematika</h4>
+            <p>Belum tersedia</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="padding: 16px; border-radius: 20px;">
+      <div class="consent" style="margin-bottom: 0;">
         <input type="checkbox" id="chkConsent">
-        <span>Saya mengizinkan <b>kamera depan menyala</b> selama latihan. Foto absen dan snapshot otomatis
-        (tiap 30 detik) <b>disimpan</b> untuk pengawasan guru dan dapat dihapus oleh guru.</span>
-      </label>
-
-      <p class="hint" style="margin:6px 0">Ujian terpilih: <b id="examPicked">Latihan umum (50 soal hikayat)</b></p>
-      <button class="btn-main" id="btnLanjut">🔴 Lanjut ke Absen Kamera</button>
-      <button class="ghost" id="btnKeUjian">📋 Daftar Ujian</button>
-      <button class="ghost" id="btnKelola" hidden>🛠 Kelola Kelas &amp; Ujian (Guru)</button>
-      <button class="ghost" id="btnKeLaporan">📊 Laporan Siswa</button>
-      <button class="ghost" id="btnLogout">🚪 Keluar Akun</button>
-
-      <div class="mt" style="padding:12px;background:#f9fafb;border-radius:10px;border:2px solid #f3f4f6">
-        <div style="font-size:.78rem;font-weight:700;color:#374151;margin-bottom:6px">🟢 Sedang mengerjakan:</div>
-        <div id="activeList" class="absensi-list"><span class="hint">Tidak ada</span></div>
+        <span>Saya mengizinkan <b>kamera depan menyala</b> selama mengerjakan tugas. Foto disimpan untuk pengawasan guru.</span>
       </div>
+    </div>
 
-      <div class="info-bar mt" id="secureInfo" style="margin-bottom:0">
-        ℹ️ Kamera depan akan <b>LIVE streaming</b> selama latihan berlangsung.
-      </div>
+    <div class="card" style="padding: 16px; border-radius: 20px;">
+      <div style="font-size:.8rem;font-weight:700;color:#374151;margin-bottom:8px">🟢 Sedang dikerjakan:</div>
+      <div id="activeList" class="absensi-list"><span class="hint">Tidak ada</span></div>
     </div>
   </div>
 
-  <!-- ABSEN -->
+  <!-- ABSEN (Sebelum mulai) -->
   <div id="screen-absen" class="screen">
-    <div class="card" style="max-width:560px;margin:20px auto">
-      <h2>🔴 Absen Kamera</h2>
-      <p class="sub" style="margin-bottom:14px">Posisikan wajah di depan kamera. Kamera akan aktif LIVE terus-menerus.</p>
+    <div class="app-header" style="margin-bottom: 10px;">
+      <h1 class="user-name" style="font-size: 1.2rem;">Persiapan Tugas</h1>
+      <button class="btn-sm ghost" id="btnBatalAbsen" style="width:auto; padding: 6px 12px; margin:0;">Batal</button>
+    </div>
+    <div class="card" style="border-radius: 20px;">
+      <p class="sub" style="margin-bottom:14px">Posisikan wajah di depan kamera. Kamera akan aktif terus-menerus selama pengerjaan.</p>
 
       <div class="cam-error" id="camError">
         <b>⚠️ Kamera tidak dapat diakses</b>
@@ -96,7 +122,6 @@
         <img class="photo-preview" id="fotoAbsenPreview" alt="Foto absen">
         <div class="live-badge"><span class="live-dot"></span>LIVE</div>
         <div class="live-timer" id="absenLiveTimer">00:00</div>
-        <div class="cam-label">🤳 Kamera Depan</div>
       </div>
 
       <div class="cam-actions">
@@ -104,19 +129,17 @@
         <button class="btn-sm btn-warn" id="btnUlangFoto" style="display:none;padding:12px 16px">🔄 Ulangi</button>
         <button class="btn-sm btn-warn" id="btnUploadFoto" style="display:none;padding:12px 16px">📁 Upload Foto</button>
       </div>
-
       <input type="file" id="fileFallback" accept="image/*" capture="user" style="display:none">
 
       <div style="text-align:center;margin-bottom:14px;font-size:.85rem;color:#6b7280">
         <b id="absenNama">—</b> · <span id="absenKelas">—</span>
       </div>
 
-      <button class="btn-main btn-green" id="btnKonfirmasiAbsen" disabled>✓ Konfirmasi Absen &amp; Mulai LIVE</button>
-      <button class="ghost" id="btnBatalAbsen">← Batal</button>
+      <button class="btn-main btn-green" id="btnKonfirmasiAbsen" disabled>✓ Mulai Kerjakan Tugas</button>
     </div>
   </div>
 
-  <!-- KUIS -->
+  <!-- KUIS / TUGAS -->
   <div id="screen-quiz" class="screen">
     <div class="topbar">
       <div class="who">
@@ -131,7 +154,7 @@
       <button class="btn-sm btn-danger" id="btnKeluar">Keluar</button>
     </div>
 
-    <div class="card">
+    <div class="card" style="border-radius: 20px;">
       <div class="qmeta">
         <span><b>Soal <span id="qNum">1</span></b> dari 50</span>
         <span class="tag" id="qTopic">—</span>
@@ -154,7 +177,7 @@
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" style="border-radius: 20px;">
       <h3>Navigasi Soal</h3>
       <div class="palette" id="palette"></div>
       <div class="legend">
@@ -167,7 +190,7 @@
 
   <!-- HASIL -->
   <div id="screen-result" class="screen">
-    <div class="card">
+    <div class="card" style="border-radius: 20px;">
       <div class="score-box">
         <div class="score-circle" id="scoreCircle">
           <div class="score-inner">
@@ -183,142 +206,82 @@
         <div class="stat"><div class="val bad" id="stSalah">0</div><div class="lbl">Salah</div></div>
         <div class="stat"><div class="val info" id="stKosong">0</div><div class="lbl">Kosong</div></div>
         <div class="stat"><div class="val info" id="stDurasi">00:00</div><div class="lbl">Durasi</div></div>
-        <div class="stat"><div class="val info" id="stSnapshot">0</div><div class="lbl">Snapshot LIVE</div></div>
       </div>
       <div class="nav" style="margin-top:0">
         <button id="btnUlangi">🔄 Ulangi</button>
-        <button id="btnHasilLaporan">📊 Laporan</button>
         <button class="btn-main btn-green" style="margin:0;flex:1;min-width:100px" id="btnSelesai">🏠 Selesai</button>
       </div>
     </div>
-    <div class="card">
-      <h2>📸 Snapshot LIVE Selama Ujian</h2>
-      <div id="resultSnapshots" class="monitor-grid"></div>
-      <div id="resultSnapEmpty" class="empty" style="padding:16px;display:none"><p>Belum ada snapshot.</p></div>
-    </div>
-    <div class="card">
+    
+    <div class="card" style="border-radius: 20px;">
       <h2>📝 Pembahasan</h2>
       <div id="reviewList"></div>
     </div>
   </div>
 
-  <!-- DAFTAR UJIAN (siswa) -->
-  <div id="screen-exams" class="screen">
-    <div class="topbar"><div class="who">📋 Daftar Ujian<small>Hanya ujian yang diizinkan guru</small></div>
-      <button class="btn-sm" id="btnExamBack">← Kembali</button></div>
-    <div class="card"><div id="examList"></div></div>
-  </div>
-
-  <!-- KELOLA KELAS & UJIAN (guru) -->
-  <div id="screen-manage" class="screen">
-    <div class="topbar"><div class="who">🛠 Kelola Kelas &amp; Ujian<small>Guru</small></div>
-      <button class="btn-sm" id="btnManageBack">← Kembali</button></div>
-    <div class="card"><h2>Kelas</h2>
-      <div class="field"><input id="inpKelasBaru" type="text" maxlength="30" placeholder="Nama kelas, mis. X RPL 1">
-        <button class="btn-sm" id="btnKelasTambah">Tambah kelas</button></div>
-      <div id="mgKelas"></div></div>
-    <div class="card"><h2>Ujian</h2>
-      <button class="btn-sm" id="btnUjianBaru">+ Ujian baru</button>
-      <div class="field"><input id="mgCari" type="search" placeholder="Cari nama, mapel, kelas, atau status"></div>
-      <div id="mgUjian"></div></div>
-    <div class="card" id="mgForm" hidden><h2 id="fmJudul">Ujian</h2>
-      <input type="hidden" id="fmId">
-      <div class="field"><label for="fmNama">Nama ujian</label><input id="fmNama" maxlength="120"></div>
-      <div class="field"><label for="fmMapel">Mata pelajaran</label><input id="fmMapel"></div>
-      <div class="field"><label for="fmDurasi">Durasi (menit)</label><input id="fmDurasi" type="number" min="1" max="600" value="90"></div>
-      <div class="field"><label for="fmMulai">Mulai</label><input id="fmMulai" type="datetime-local"></div>
-      <div class="field"><label for="fmSelesai">Berakhir</label><input id="fmSelesai" type="datetime-local"></div>
-      <div class="field"><label for="fmStatus">Status</label><select id="fmStatus">
-        <option value="draf">Draf</option><option value="dijadwalkan">Dijadwalkan</option>
-        <option value="dibuka">Dibuka</option><option value="ditutup">Ditutup</option></select></div>
-      <div class="field"><label for="fmInstruksi">Instruksi pengerjaan</label><textarea id="fmInstruksi" rows="3"></textarea></div>
-      <h3>Kelas tujuan</h3>
-      <button class="btn-sm" id="fmKelasAll">Pilih semua</button> <button class="btn-sm" id="fmKelasNone">Hapus pilihan</button>
-      <div id="fmKelas"></div>
-      <h3>Soal</h3>
-      <button class="btn-sm" id="fmSoalAll">Pilih semua</button> <button class="btn-sm" id="fmSoalNone">Hapus pilihan</button>
-      <div id="fmSoal" style="max-height:320px;overflow:auto"></div>
-      <div class="nav"><button id="fmBatal">Batal</button><button class="btn-main" id="fmSimpan">Simpan ujian</button></div>
-    </div>
-  </div>
-
-  <!-- LAPORAN -->
+  <!-- LAPORAN (Disembunyikan dari menu bawah, muncul via JS jika guru) -->
   <div id="screen-report" class="screen">
     <div class="topbar">
-      <div class="who">📊 Laporan Siswa &amp; Database Kamera LIVE<small id="rpSub">Database Supabase</small></div>
+      <div class="who">📊 Laporan Siswa</div>
       <button class="btn-sm" id="btnBackLogin">← Kembali</button>
     </div>
-
-    <div class="card">
-      <div class="stat-grid" style="margin-top:0">
-        <div class="stat"><div class="val info" id="rpSiswa">0</div><div class="lbl">Siswa</div></div>
-        <div class="stat"><div class="val info" id="rpPercobaan">0</div><div class="lbl">Percobaan</div></div>
-        <div class="stat"><div class="val ok" id="rpRata">0</div><div class="lbl">Rata-rata</div></div>
-        <div class="stat"><div class="val ok" id="rpMax">0</div><div class="lbl">Tertinggi</div></div>
-        <div class="stat"><div class="val bad" id="rpMin">0</div><div class="lbl">Terendah</div></div>
-        <div class="stat"><div class="val info" id="rpFoto">0</div><div class="lbl">Foto LIVE</div></div>
-      </div>
+    <div class="card" style="border-radius: 20px;">
       <div class="toolbar">
-        <input type="text" id="rpSearch" placeholder="🔍 Cari nama..." aria-label="Cari nama">
-        <select id="rpFilterKelas" aria-label="Filter kelas"><option value="">Semua Kelas</option></select>
+        <input type="text" id="rpSearch" placeholder="🔍 Cari nama...">
+        <select id="rpFilterKelas"><option value="">Semua Kelas</option></select>
         <button class="btn-sm btn-ok" id="btnExport">⬇ CSV</button>
-        <button class="btn-sm" id="btnRefresh">🔄 Muat ulang</button>
+        <button class="btn-sm" id="btnRefresh">🔄</button>
       </div>
       <div class="table-wrap">
         <table>
           <thead>
-            <tr>
-              <th>No</th><th>Foto</th><th>Nama</th><th>Kelas</th><th>Tanggal</th>
-              <th>Skor</th><th>Benar</th><th>Salah</th><th>Durasi</th><th>Snapshot</th><th>Aksi</th>
-            </tr>
+            <tr><th>No</th><th>Nama</th><th>Kelas</th><th>Tanggal</th><th>Skor</th><th>Aksi</th></tr>
           </thead>
           <tbody id="rpBody"></tbody>
         </table>
       </div>
-      <div id="rpEmpty" class="empty" style="display:none">
-        <div class="ico">📭</div><p>Belum ada data latihan.</p>
-      </div>
     </div>
+  </div>
 
-    <!-- khusus guru -->
-    <div class="card" id="cardSiswa" hidden>
-      <div class="card-head"><h2>👥 Data Siswa</h2></div>
-      <div class="table-wrap">
-        <table style="min-width:560px">
-          <thead><tr><th>Nama</th><th>Kelas</th><th>Percobaan</th><th>Aksi</th></tr></thead>
-          <tbody id="siswaBody"></tbody>
-        </table>
-      </div>
-      <p class="hint mt">Menghapus data siswa = menghapus semua nilai &amp; foto siswa itu. Akun login tetap ada
-        (hapus akun lewat Supabase → Authentication → Users).</p>
-    </div>
+  <!-- KELOLA (Guru) -->
+  <div id="screen-manage" class="screen">
+    <div class="topbar"><div class="who">🛠 Kelola Kelas &amp; Tugas</div>
+      <button class="btn-sm" id="btnManageBack">← Kembali</button></div>
+    <div class="card"><h2>Kelas</h2><div id="mgKelas"></div></div>
+    <div class="card"><h2>Tugas</h2><div id="mgUjian"></div></div>
+  </div>
 
-    <div class="card" id="cardGallery" hidden>
-      <div class="card-head">
-        <h2>🔴 Galeri Snapshot LIVE</h2>
-        <select id="galFilter" aria-label="Jenis foto" style="padding:8px 10px;border:2px solid #e5e7eb;border-radius:10px">
-          <option value="">Semua foto</option><option value="absen">Foto absen</option><option value="live">Snapshot LIVE</option>
-        </select>
-      </div>
-      <div id="fotoGallery" class="photo-grid"></div>
-      <div id="fotoEmpty" class="empty" style="display:none;padding:20px"><p>Belum ada foto LIVE.</p></div>
-      <button class="ghost mt" id="btnMoreFoto" hidden>Muat foto lainnya</button>
-
-      <div class="zone-danger">
-        <h3>🗑 Penghapusan massal (hanya guru)</h3>
-        <div class="row">
-          <button class="btn-sm btn-warn" id="btnPurgeOld">Hapus foto &gt; 30 hari</button>
-          <button class="btn-sm btn-warn" id="btnPurgeStale">Bersihkan sesi tidak selesai</button>
-          <button class="btn-sm btn-delete" id="btnHapusSemua">Hapus SEMUA data</button>
-        </div>
-      </div>
-    </div>
+  <!-- DAFTAR TUGAS (eks Ujian) -->
+  <div id="screen-exams" class="screen">
+    <div class="topbar"><div class="who">📋 Daftar Tugas</div>
+      <button class="btn-sm" id="btnExamBack">← Kembali</button></div>
+    <div class="card"><div id="examList"></div></div>
   </div>
 </div>
 
-<!-- COPYRIGHT -->
-<footer style="text-align:center;padding:18px 16px 28px;font-size:.8rem;line-height:1.6;color:#000000">
-  <div>&copy; 2026 <b>ULANGAN - SMKN 2 MOJOKERTO</b></div>
+<!-- BOTTOM NAVIGATION (Menu Bawah) -->
+<nav class="bottom-nav" id="bottomNav" style="display: none;">
+  <div class="nav-item active" onclick="showScreen('home'); refreshActiveList();">
+    <span class="nav-icon">🏠</span>
+    <span>Beranda</span>
+  </div>
+  <div class="nav-item" onclick="alert('Fitur Riwayat segera hadir!')">
+    <span class="nav-icon">📋</span>
+    <span>Tugas Saya</span>
+  </div>
+  <div class="nav-item" id="navLaporan" onclick="runBusy(null, openReport)">
+    <span class="nav-icon">📊</span>
+    <span>Laporan</span>
+  </div>
+  <div class="nav-item" onclick="doLogout()">
+    <span class="nav-icon">🚪</span>
+    <span>Keluar</span>
+  </div>
+</nav>
+
+<!-- COPYRIGHT BARU -->
+<footer class="app-footer">
+  <div>&copy; 2026 <b>SMKN 2 Mojokerto</b></div>
   <div>Dikembangkan oleh Muhammad Ilham Dwi Pramesdi</div>
 </footer>
 
@@ -335,36 +298,13 @@
   </div>
 </div>
 
-<!-- Modal detail / foto / edit -->
-<div class="modal" id="modal">
-  <div class="modal-box">
-    <div class="modal-head">
-      <h2 id="modalTitle">Detail</h2>
-      <button class="close-x" id="modalClose" aria-label="Tutup">✕</button>
-    </div>
-    <div id="modalBody"></div>
-  </div>
-</div>
-
-<!-- Dialog konfirmasi -->
-<div class="modal confirm" id="confirm" role="dialog" aria-modal="true" aria-labelledby="cfTitle">
-  <div class="modal-box small">
-    <h2 id="cfTitle">Konfirmasi</h2>
-    <p id="cfMsg"></p>
-    <div class="field" id="cfTypeWrap" hidden>
-      <label for="cfType" id="cfTypeLbl"></label>
-      <input id="cfType" type="text" autocomplete="off" autocapitalize="characters">
-    </div>
-    <div class="row">
-      <button class="ghost" id="cfNo" style="margin:0">Batal</button>
-      <button class="btn-delete" id="cfYes">Ya, hapus</button>
-    </div>
-  </div>
-</div>
-
+<!-- Modal & Loading -->
+<div class="modal" id="modal"><div class="modal-box"><div class="modal-head"><h2 id="modalTitle">Detail</h2><button class="close-x" id="modalClose">✕</button></div><div id="modalBody"></div></div></div>
+<div class="modal confirm" id="confirm"><div class="modal-box small"><h2 id="cfTitle">Konfirmasi</h2><p id="cfMsg"></p><div class="field" id="cfTypeWrap" hidden><label for="cfType" id="cfTypeLbl"></label><input id="cfType" type="text"></div><div class="row"><button class="ghost" id="cfNo" style="margin:0">Batal</button><button class="btn-delete" id="cfYes">Ya</button></div></div></div>
 <div class="loading" id="loading"><div class="spinner"></div><div id="loadingText">Memproses…</div></div>
 <div class="toasts" id="toasts" aria-live="polite"></div>
 
+<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script src="js/config.js"></script>
 <script src="js/data.js"></script>
@@ -378,4 +318,4 @@
 <script src="js/ujian.js"></script>
 <script src="js/main.js"></script>
 </body>
-</html>
+          </html>
