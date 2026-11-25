@@ -1753,3 +1753,225 @@ button.busy::after {
   border-radius: 10px;
   font: inherit;
 }
+
+/* =======================================================
+   TEMA BARU: APP-LIKE UI (WARNA ASLI DIPERTAHANKAN)
+   ======================================================= */
+body {
+  background-color: #567c83; /* Warna background asli website kamu */
+  padding: 0;
+  padding-bottom: 70px; /* Ruang untuk bottom nav */
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+.wrap {
+  max-width: 600px;
+  padding: 16px;
+  margin: 0 auto;
+}
+
+/* Header Aplikasi (Warna teks putih karena background teal) */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-top: 10px;
+  color: #fff;
+}
+
+.greet {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 2px;
+}
+
+.user-name {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+}
+
+.user-kelas {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.avatar {
+  width: 45px;
+  height: 45px;
+  background: #e5efc1; /* Warna pale green asli (tombol small) */
+  color: #3f6268; /* Warna teks utama asli */
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Tombol Batal di Header Absen */
+.app-header .ghost {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.5);
+}
+.app-header .ghost:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/* Grid Kartu Tugas / Mata Pelajaran */
+.subject-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.subject-card {
+  background: #fff;
+  border: 2px solid #f3f4f6;
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.subject-card:active {
+  transform: scale(0.96);
+  background: #f9fafb;
+}
+
+/* Warna Kartu Aktif pakai Accent (Teal Terang) & BG Bacaan */
+.subject-card.active-subject {
+  border: 2px solid #3aaea9; 
+  background: #f4f8e6; 
+}
+
+.subject-icon {
+  font-size: 1.8rem;
+  background: #f3f4f6;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+}
+
+.subject-card.active-subject .subject-icon {
+  background: #e5efc1; 
+}
+
+.subject-info h4 {
+  font-size: 0.95rem;
+  color: #3f6268;
+  margin-bottom: 4px;
+}
+
+.subject-info p {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+/* BOTTOM NAVIGATION */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #ffffff;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0 15px 0;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  z-index: 1000;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  font-size: 0.7rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+  flex: 1;
+}
+
+.nav-item.active {
+  color: #3f6268; /* Warna teks utama asli */
+  transform: translateY(-2px);
+}
+
+.nav-icon {
+  font-size: 1.3rem;
+  margin-bottom: 4px;
+  filter: grayscale(100%) opacity(0.5);
+}
+
+.nav-item.active .nav-icon {
+  filter: grayscale(0%) opacity(1);
+}
+
+/* Auth Logo */
+.logo-app {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* Sembunyikan tombol lama yang tidak dipakai */
+#btnKeLaporan, #btnLogout, #btnKelola {
+  display: none !important;
+}
+
+/* Tombol Utama (Warna Medium Teal) */
+.btn-main {
+  background: #567c83; 
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.btn-main:hover:not(:disabled) {
+  filter: brightness(1.12);
+}
+
+/* Penyesuaian kamera live agar tidak menutupi bottom nav */
+.cam-float {
+  bottom: 90px; 
+}
+
+@media(max-width: 400px) {
+  .subject-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Styling untuk Copyright / Footer */
+.app-footer {
+  text-align: center;
+  padding: 20px 16px;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7); /* Putih transparan agar terbaca di background tosca */
+  margin-top: 10px;
+}
+
+.app-footer b {
+  color: #ffffff; /* Nama aplikasi dibuat putih terang */
+}
+
+/* Supaya di halaman login jaraknya nggak terlalu jauh ke bawah */
+#screen-auth.active ~ .app-footer {
+  padding-bottom: 20px;
+}
