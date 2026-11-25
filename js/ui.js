@@ -1,6 +1,6 @@
 /* Pembantu tampilan: elemen, layar, notifikasi, dialog konfirmasi, loading. */
 const $ = id => document.getElementById(id);
-const LETTERS = ['A','B','C','D','E'];
+const LETTERS = ['A','B','C','D'];
 
 function escapeHtml(str){
   return String(str == null ? '' : str).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -17,9 +17,25 @@ function fmtDate(iso){
 let currentScreen = 'auth';
 function showScreen(name){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  $('screen-'+name).classList.add('active');
+  const target = $('screen-'+name);
+  if(target) target.classList.add('active');
   currentScreen = name;
   window.scrollTo({top:0, behavior:'smooth'});
+
+  // Atur tampilan Bottom Nav
+  const bottomNav = $('bottomNav');
+  if(name === 'auth' || name === 'quiz' || name === 'absen' || name === 'result') {
+    bottomNav.style.display = 'none';
+  } else {
+    bottomNav.style.display = 'flex';
+    // Set active state (Beranda atau Laporan)
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    if(name === 'home') {
+      document.querySelector('.nav-item:nth-child(1)').classList.add('active');
+    } else if(name === 'report') {
+      document.querySelector('.nav-item:nth-child(3)').classList.add('active');
+    }
+  }
 }
 
 /* ---- pesan error yang mudah dipahami ---- */
@@ -27,7 +43,6 @@ function friendlyError(e){
   const m = (e && (e.message || e.error_description || e.msg)) || String(e || '');
   if(!navigator.onLine || /failed to fetch|networkerror|load failed|network request failed/i.test(m))
     return 'Koneksi internet bermasalah. Periksa jaringan lalu coba lagi.';
-  if(/database error saving new user/i.test(m)) return 'Pendaftaran gagal. Pastikan kelas yang dipilih masih aktif.';
   if(/invalid login credentials/i.test(m)) return 'Email atau kata sandi salah.';
   if(/already registered|already been registered/i.test(m)) return 'Email ini sudah terdaftar. Silakan masuk.';
   if(/email not confirmed/i.test(m)) return 'Email belum dikonfirmasi. Cek kotak masuk email Anda.';
