@@ -1974,4 +1974,4 @@ body {
 /* Supaya di halaman login jaraknya nggak terlalu jauh ke bawah */
 #screen-auth.active ~ .app-footer {
   padding-bottom: 20px;
-}
+  }
